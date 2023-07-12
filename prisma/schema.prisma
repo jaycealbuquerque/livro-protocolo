@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Protocolos {
+  id                   String   @id @unique @default(uuid())
+  documentoInteressado String
+  nomeInteressado      String
+  dataProtocolo        String
+  atoSerPraticado      String
+  atoLavrado           String
+  atoLavradoLivro      String
+  atoLavradoFolhas     String
+  created_at           DateTime @default(now())
+
+  @@map("protocolos")
+}

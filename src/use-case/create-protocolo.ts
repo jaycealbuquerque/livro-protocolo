@@ -1,3 +1,5 @@
+import { PrismaClient } from '@prisma/client'
+
 interface CreateProtocoloUseCaseRequest {
   documentoInteressado: string
   nomeInteressado: string
@@ -18,14 +20,20 @@ export class CreateProtocoloUseCase {
     atoLavradoLivro,
     atoLavradoFolhas,
   }: CreateProtocoloUseCaseRequest) {
-    return {
-      documentoInteressado,
-      nomeInteressado,
-      dataProtocolo,
-      atoSerPraticado,
-      atoLavrado,
-      atoLavradoLivro,
-      atoLavradoFolhas,
-    }
+    const prisma = new PrismaClient()
+
+    const result = await prisma.protocolos.create({
+      data: {
+        documentoInteressado,
+        nomeInteressado,
+        dataProtocolo,
+        atoSerPraticado,
+        atoLavrado,
+        atoLavradoLivro,
+        atoLavradoFolhas,
+      },
+    })
+
+    return result
   }
 }
