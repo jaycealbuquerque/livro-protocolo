@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
 interface CreateProtocoloUseCaseRequest {
+  numeroProtocolo: string
   documentoInteressado: string
   nomeInteressado: string
   dataProtocolo: string
@@ -12,6 +13,7 @@ interface CreateProtocoloUseCaseRequest {
 
 export class CreateProtocoloUseCase {
   async execute({
+    numeroProtocolo,
     documentoInteressado,
     nomeInteressado,
     dataProtocolo,
@@ -24,6 +26,7 @@ export class CreateProtocoloUseCase {
 
     const result = await prisma.protocolos.create({
       data: {
+        numeroProtocolo,
         documentoInteressado,
         nomeInteressado,
         dataProtocolo,

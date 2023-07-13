@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "protocolos" (
     "id" TEXT NOT NULL,
+    "numeroProtocolo" TEXT NOT NULL,
     "documentoInteressado" TEXT NOT NULL,
     "nomeInteressado" TEXT NOT NULL,
     "dataProtocolo" TEXT NOT NULL,
