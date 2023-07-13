@@ -12,6 +12,7 @@ datasource db {
 
 model Protocolos {
   id                   String   @id @unique @default(uuid())
+  numeroProtocolo      String
   documentoInteressado String
   nomeInteressado      String
   dataProtocolo        String
