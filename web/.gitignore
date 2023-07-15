@@ -1,21 +1,13 @@
-
-/node_modules
-/.pnp
-.pnp.js
+node_modules
 .vscode
 package-lock.json
+.env
+.DS_Store
+npm-debug.log*
 
-# testing
-/coverage
+
 
 # production
 /build
 
-# misc
-.DS_Store
 
-
-npm-debug.log*
-
-
-.env
