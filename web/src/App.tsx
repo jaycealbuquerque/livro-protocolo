@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 
-import ListarProtocolos from "./pages/ListarProtocolos";
+import GetAllProtocolos from "./pages/GetAllProtocolos";
+import CreateProtocolos from "./pages/CreateProtocolo";
 
 
 export function App() {
@@ -13,7 +14,8 @@ export function App() {
       <Router>
         <Routes>
 
-          <Route path="/" element={<ListarProtocolos />} />
+          <Route path="/" element={<CreateProtocolos />} />
+          <Route path="/getAllProtocolos" element={<GetAllProtocolos />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
 

@@ -1,15 +1,15 @@
 import Breadcrumb from "../components/Breadcrumb";
-import TableTwo from "../components/TableTwo";
+import Table from "../components/Table";
 import DefaultLayout from "../layout/DefaultLayout";
 
 
-export default function ListarProtocolos() {
+export default function GetAllProtocolos() {
   return (
 
     <DefaultLayout>
       <Breadcrumb pageName='Listar Protocolos' />
 
-      <TableTwo />
+      <Table />
     </DefaultLayout>
   )
 }
