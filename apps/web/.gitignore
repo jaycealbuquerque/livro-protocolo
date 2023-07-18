@@ -1,0 +1,13 @@
+node_modules
+.vscode
+package-lock.json
+.env
+.DS_Store
+npm-debug.log*
+
+
+
+# production
+/build
+
+
