@@ -10,17 +10,51 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model LivrosProtocolos {
+  id               String       @id @unique
+  nome_livro       String
+  numero_livro     String
+  data_abertura    String
+  data_enceramento String
+  Protocolos       Protocolos[]
+  created_at       DateTime     @default(now())
+
+  @@map("livros-protocolos")
+}
+
 model Protocolos {
-  id                   String   @id @unique @default(uuid())
-  numeroProtocolo      String
-  documentoInteressado String
-  nomeInteressado      String
-  dataProtocolo        String
-  atoSerPraticado      String
-  atoLavrado           String
-  atoLavradoLivro      String
-  atoLavradoFolhas     String
-  created_at           DateTime @default(now())
+  numerosProtocolosId String            @id @unique
+  livrosProtocolosId  String
+  requerenteId        String
+  dataProtocolo       String
+  atoPraticar         String
+  atoLavrado          String
+  livroLavrado        String
+  folhaLavrado        String
+  LivrosProtocolos    LivrosProtocolos  @relation(fields: [livrosProtocolosId], references: [id])
+  Requerentes         Requerentes       @relation(fields: [requerenteId], references: [documento])
+  numeroProtocolo     NumerosProtocolos @relation(fields: [numerosProtocolosId], references: [id])
+  created_at          DateTime          @default(now())
 
   @@map("protocolos")
+}
+
+model NumerosProtocolos {
+  id                  String      @id @unique
+  dataProtocolo       String
+  numeroProtocolo     String
+  folhaLivroProtocolo String
+  created_at          DateTime    @default(now())
+  Protocolos          Protocolos?
+
+  @@map("numeros-protocolos")
+}
+
+model Requerentes {
+  documento  String       @id @unique
+  nome       String
+  Protocolos Protocolos[]
+  created_at DateTime     @default(now())
+
+  @@map("requerentes")
 }

@@ -1,39 +1,62 @@
 import { PrismaClient } from '@prisma/client'
 
 interface CreateProtocoloUseCaseRequest {
-  numeroProtocolo: string
-  documentoInteressado: string
-  nomeInteressado: string
+  livrosProtocolosId: string
+  numerosProtocolosId: string
+  documento: string
+  nome: string
   dataProtocolo: string
-  atoSerPraticado: string
+  atoPraticar: string
   atoLavrado: string
-  atoLavradoLivro: string
-  atoLavradoFolhas: string
+  livroLavrado: string
+  folhaLavrado: string
 }
 
 export class CreateProtocoloUseCase {
   async execute({
-    numeroProtocolo,
-    documentoInteressado,
-    nomeInteressado,
+    livrosProtocolosId,
+    numerosProtocolosId,
+    documento,
+    nome,
     dataProtocolo,
-    atoSerPraticado,
+    atoPraticar,
     atoLavrado,
-    atoLavradoLivro,
-    atoLavradoFolhas,
+    livroLavrado,
+    folhaLavrado,
   }: CreateProtocoloUseCaseRequest) {
     const prisma = new PrismaClient()
 
     const result = await prisma.protocolos.create({
       data: {
-        numeroProtocolo,
-        documentoInteressado,
-        nomeInteressado,
+        LivrosProtocolos: {
+          connect: {
+            id: livrosProtocolosId,
+          },
+        },
+        numeroProtocolo: {
+          create: {
+            id: numerosProtocolosId,
+            dataProtocolo: '20230720',
+            numeroProtocolo: '000004',
+            folhaLivroProtocolo: '1',
+          },
+        },
         dataProtocolo,
-        atoSerPraticado,
+        atoPraticar,
         atoLavrado,
-        atoLavradoLivro,
-        atoLavradoFolhas,
+        livroLavrado,
+        folhaLavrado,
+        Requerentes: {
+          connectOrCreate: {
+            where: {
+              documento,
+            },
+            create: {
+              documento,
+              nome,
+            },
+          },
+        },
       },
     })
 
