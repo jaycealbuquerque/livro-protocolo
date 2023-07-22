@@ -4,7 +4,7 @@ import { CreateProtocoloUseCase } from '../../use-case/create-protocolo'
 export class CreateProtocoloController {
   async handle(request: Request, response: Response) {
     const {
-      livrosProtocolosId,
+      categoriaProtocolo,
       numerosProtocolosId,
       documento,
       nome,
@@ -18,7 +18,7 @@ export class CreateProtocoloController {
     const createProtocoloUseCase = new CreateProtocoloUseCase()
 
     const createProtocolo = await createProtocoloUseCase.execute({
-      livrosProtocolosId,
+      categoriaProtocolo,
       numerosProtocolosId,
       documento,
       nome,

@@ -10,20 +10,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model CategoriasLivrosProtocolos {
+  categoria_livro String   @id @unique
+  created_at      DateTime @default(now())
+
+  LivrosProtocolos LivrosProtocolos[]
+
+  @@map("categorias-livros-protocolos")
+}
+
 model LivrosProtocolos {
-  id               String       @id @unique
-  nome_livro       String
-  numero_livro     String
+  id               String   @id @unique
+  nome_livro_id    String
+  numero_livro     Int
   data_abertura    String
-  data_enceramento String
-  Protocolos       Protocolos[]
-  created_at       DateTime     @default(now())
+  data_enceramento String?
+  created_at       DateTime @default(now())
+
+  Protocolos                 Protocolos[]
+  CategoriasLivrosProtocolos CategoriasLivrosProtocolos @relation(fields: [nome_livro_id], references: [categoria_livro])
+  NumerosProtocolos          NumerosProtocolos[]
 
   @@map("livros-protocolos")
 }
 
 model Protocolos {
-  numerosProtocolosId String            @id @unique
+  numerosProtocolosId String   @id @unique
   livrosProtocolosId  String
   requerenteId        String
   dataProtocolo       String
@@ -31,30 +43,35 @@ model Protocolos {
   atoLavrado          String
   livroLavrado        String
   folhaLavrado        String
-  LivrosProtocolos    LivrosProtocolos  @relation(fields: [livrosProtocolosId], references: [id])
-  Requerentes         Requerentes       @relation(fields: [requerenteId], references: [documento])
-  numeroProtocolo     NumerosProtocolos @relation(fields: [numerosProtocolosId], references: [id])
-  created_at          DateTime          @default(now())
+  created_at          DateTime @default(now())
+
+  LivrosProtocolos LivrosProtocolos  @relation(fields: [livrosProtocolosId], references: [id])
+  Requerentes      Requerentes       @relation(fields: [requerenteId], references: [documento])
+  numeroProtocolo  NumerosProtocolos @relation(fields: [numerosProtocolosId], references: [id])
 
   @@map("protocolos")
 }
 
 model NumerosProtocolos {
-  id                  String      @id @unique
+  id                  String   @id @unique
   dataProtocolo       String
-  numeroProtocolo     String
-  folhaLivroProtocolo String
-  created_at          DateTime    @default(now())
-  Protocolos          Protocolos?
+  numeroProtocolo     Int
+  folhaLivroProtocolo Int
+  livrosProtocolosId  String
+  created_at          DateTime @default(now())
+
+  LivrosProtocolos LivrosProtocolos @relation(fields: [livrosProtocolosId], references: [id])
+  Protocolos       Protocolos?
 
   @@map("numeros-protocolos")
 }
 
 model Requerentes {
-  documento  String       @id @unique
+  documento  String   @id @unique
   nome       String
+  created_at DateTime @default(now())
+
   Protocolos Protocolos[]
-  created_at DateTime     @default(now())
 
   @@map("requerentes")
 }
