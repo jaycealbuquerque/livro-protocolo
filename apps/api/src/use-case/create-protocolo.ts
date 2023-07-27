@@ -1,18 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import dayjs from 'dayjs'
-import { PrismaProtocoloRepository } from '../../repositories/prisma/prisma-protocolos-repository'
-
-interface CreateProtocoloUseCaseRequest {
-  categoriaProtocolo: string
-  numerosProtocolosId: string
-  documento: string
-  nome: string
-  dataProtocolo: string
-  atoPraticar: string
-  atoLavrado: string
-  livroLavrado: string
-  folhaLavrado: string
-}
+import { PrismaProtocoloRepository } from '../repositories/prisma/prisma-protocolos-repository'
+import { ICreateProtocoloDTO } from '../dtos/ICreateProtocoloDTO'
 
 export class CreateProtocoloUseCase {
   async execute({
@@ -24,7 +13,7 @@ export class CreateProtocoloUseCase {
     atoLavrado,
     livroLavrado,
     folhaLavrado,
-  }: CreateProtocoloUseCaseRequest) {
+  }: ICreateProtocoloDTO) {
     const prisma = new PrismaClient()
     const prismaProtocoloRepository = new PrismaProtocoloRepository()
 
